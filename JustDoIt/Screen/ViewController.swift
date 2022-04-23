@@ -9,6 +9,8 @@ import UIKit
 
 class ViewController: UITableViewController {
     
+    var tasks = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "JustDoIt"
@@ -17,18 +19,22 @@ class ViewController: UITableViewController {
                                             target: self,
                                             action: #selector(addTask))
         navigationItem.rightBarButtonItem = addTaskButton
+        tableView = UITableView(frame: view.bounds, style: .insetGrouped)
+        tableView.register(TaskCell.self, forCellReuseIdentifier: TaskCell.reuseId)
     }
     
     @objc func addTask() {
         let addTaskController = UIAlertController(title: "Enter Task",
                                                   message: nil,
                                                   preferredStyle: .alert)
-        addTaskController.addTextField { textField in
-            
-        }
-        let cansel = UIAlertAction(title: "Cansel", style: .cancel)
+        addTaskController.addTextField { textField in }
+        let cansel = UIAlertAction(title: "Cancel", style: .cancel)
         let add = UIAlertAction(title: "Add", style: .default) { action in
-            
+            let textf = addTaskController.textFields?.first
+            if let newTask = textf?.text {
+                self.tasks.append(newTask)
+                self.tableView.reloadData()
+            }
         }
         addTaskController.addAction(cansel)
         addTaskController.addAction(add)
@@ -36,11 +42,17 @@ class ViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        UITableViewCell()
+        if let cell = tableView.dequeueReusableCell(withIdentifier: TaskCell.reuseId, for: indexPath) as? TaskCell {
+            var content = cell.defaultContentConfiguration()
+            content.text = tasks[indexPath.row]
+            cell.contentConfiguration = content
+            return cell
+        }
+        return UITableViewCell()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        5
+        tasks.count
     }
     
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E60564F2814455F00D83DF2 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E60564E2814455F00D83DF2 /* TaskCell.swift */; };
 		1EF7358928136E2200D9F60B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF7358828136E2200D9F60B /* AppDelegate.swift */; };
 		1EF7358B28136E2200D9F60B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF7358A28136E2200D9F60B /* SceneDelegate.swift */; };
 		1EF7358D28136E2200D9F60B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF7358C28136E2200D9F60B /* ViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1E60564E2814455F00D83DF2 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		1EF7358528136E2200D9F60B /* JustDoIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JustDoIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EF7358828136E2200D9F60B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1EF7358A28136E2200D9F60B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -37,6 +39,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E60564D2814453900D83DF2 /* Screen */ = {
+			isa = PBXGroup;
+			children = (
+				1EF7358C28136E2200D9F60B /* ViewController.swift */,
+				1E60564E2814455F00D83DF2 /* TaskCell.swift */,
+			);
+			path = Screen;
+			sourceTree = "<group>";
+		};
 		1EF7357C28136E2200D9F60B = {
 			isa = PBXGroup;
 			children = (
@@ -56,7 +67,7 @@
 		1EF7358728136E2200D9F60B /* JustDoIt */ = {
 			isa = PBXGroup;
 			children = (
-				1EF7358C28136E2200D9F60B /* ViewController.swift */,
+				1E60564D2814453900D83DF2 /* Screen */,
 				1EF7359128136E2200D9F60B /* JustDoIt.xcdatamodeld */,
 				1EF7359F2813754200D9F60B /* Supporting files */,
 			);
@@ -149,6 +160,7 @@
 				1EF7358928136E2200D9F60B /* AppDelegate.swift in Sources */,
 				1EF7358B28136E2200D9F60B /* SceneDelegate.swift in Sources */,
 				1EF7359328136E2200D9F60B /* JustDoIt.xcdatamodeld in Sources */,
+				1E60564F2814455F00D83DF2 /* TaskCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
