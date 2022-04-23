@@ -48,6 +48,14 @@
 			path = Screen;
 			sourceTree = "<group>";
 		};
+		1E6056502814B18000D83DF2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1EF7359128136E2200D9F60B /* JustDoIt.xcdatamodeld */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		1EF7357C28136E2200D9F60B = {
 			isa = PBXGroup;
 			children = (
@@ -68,7 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				1E60564D2814453900D83DF2 /* Screen */,
-				1EF7359128136E2200D9F60B /* JustDoIt.xcdatamodeld */,
+				1E6056502814B18000D83DF2 /* Model */,
 				1EF7359F2813754200D9F60B /* Supporting files */,
 			);
 			path = JustDoIt;
