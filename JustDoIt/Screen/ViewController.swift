@@ -40,20 +40,35 @@ class ViewController: UITableViewController {
         let addTaskController = UIAlertController(title: "Enter Task",
                                                   message: nil,
                                                   preferredStyle: .alert)
-        addTaskController.addTextField { textField in }
-        let cansel = UIAlertAction(title: "Cancel", style: .cancel)
-        let add = UIAlertAction(title: "Add", style: .default) { action in
-            let textf = addTaskController.textFields?.first
-            if let task = textf?.text {
+        addTaskController.addTextField { textField in
+            let tasksExamples = ["Make a resume",
+                                 "Order delivery",
+                                 "Clean the apartment"]
+            textField.clearButtonMode = .whileEditing
+            textField.autocorrectionType = .default
+            textField.placeholder = tasksExamples.randomElement()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let addTaskAction = UIAlertAction(title: "Add", style: .default) { action in
+            let textField = addTaskController.textFields?.first
+            guard let task = textField?.text else { return }
+            if !task.isEmpty {
                 self.saveTask(withTitle: task)
                 self.tableView.reloadData()
+            } else {
+                let alert = UIAlertController(title: "The task is empty",
+                                              message: "Please try again",
+                                              preferredStyle: .alert)
+                let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+                alert.addAction(cancel)
+                self.present(alert, animated: true)
             }
         }
-        addTaskController.addAction(cansel)
-        addTaskController.addAction(add)
+        addTaskController.addAction(cancelAction)
+        addTaskController.addAction(addTaskAction)
         present(addTaskController, animated: true)
     }
-
+    
     private func saveTask(withTitle title: String) {
         let context = getContext()
         guard let entity = NSEntityDescription.entity(forEntityName: "Task", in: context) else { return }
@@ -98,7 +113,6 @@ extension ViewController {
             let context = self.getContext()
             let task = self.tasks[indexPath.row]
             context.delete(task)
-
             do {
                 try context.save()
                 self.tasks = self.tasks.filter { $0 != task }
