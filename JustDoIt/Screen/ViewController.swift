@@ -11,6 +11,7 @@ import CoreData
 class ViewController: UITableViewController {
     
     var tasks = [Task]()
+    lazy var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,10 +27,9 @@ class ViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let context = getContext()
         let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
         do {
-            tasks = try context.fetch(fetchRequest )
+            tasks = try context.fetch(fetchRequest)
         } catch {
             let nserror = error as NSError
             fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
@@ -70,7 +70,6 @@ class ViewController: UITableViewController {
     }
     
     private func saveTask(withTitle title: String) {
-        let context = getContext()
         guard let entity = NSEntityDescription.entity(forEntityName: "Task", in: context) else { return }
         let taskObject = Task(entity: entity, insertInto: context)
         taskObject.title = title
@@ -81,11 +80,6 @@ class ViewController: UITableViewController {
             let nserror = error as NSError
             fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
         }
-    }
-    
-    private func getContext() -> NSManagedObjectContext {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        return appDelegate.persistentContainer.viewContext
     }
     
 }
@@ -110,11 +104,10 @@ extension ViewController {
     override func tableView(_ tableView: UITableView,
                             trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, _ in
-            let context = self.getContext()
             let task = self.tasks[indexPath.row]
-            context.delete(task)
+            self.context.delete(task)
             do {
-                try context.save()
+                try self.context.save()
                 self.tasks = self.tasks.filter { $0 != task }
                 self.tableView.deleteRows(at: [indexPath], with: .automatic)
             } catch {
